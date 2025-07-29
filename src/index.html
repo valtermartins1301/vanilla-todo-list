@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A modern, responsive todo list application built with vanilla JavaScript and Material Design. Organize your tasks efficiently with a beautiful, accessible interface.">
+    <meta name="keywords" content="todo list, task manager, vanilla javascript, material design, productivity">
+    <meta name="author" content="Vanilla Todo List">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vanilla-todo-list.com/">
+    <meta property="og:title" content="Vanilla Todo List">
+    <meta property="og:description" content="A modern, responsive todo list application built with vanilla JavaScript and Material Design. Organize your tasks efficiently with a beautiful, accessible interface.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vanilla-todo-list.com/">
+    <meta property="twitter:title" content="Vanilla Todo List">
+    <meta property="twitter:description" content="A modern, responsive todo list application built with vanilla JavaScript and Material Design. Organize your tasks efficiently with a beautiful, accessible interface.">
+    
+    <title>Vanilla Todo List</title>
+    
+    <!-- Favicon and theme -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+    <meta name="theme-color" content="#6750a4">
+    
+    <!-- Preconnect to Google Fonts for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap"></noscript>
+    
+    <!-- Critical CSS to prevent layout shift -->
+    <style>
+        /* Critical styles to prevent CLS */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6750a4 0%, #7d5260 100%);
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header {
+            padding: 40px 0;
+            text-align: center;
+            color: #ffffff;
+        }
+        
+        .header__title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+        }
+        
+        .header__subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .main {
+            padding-bottom: 40px;
+        }
+        
+        .todo-app {
+            background: #fffbfe;
+            border-radius: 16px;
+            box-shadow: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px 0 rgba(0, 0, 0, 0.30);
+            margin: 20px auto;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        
+        .todo-input-section {
+            padding: 30px;
+            border-bottom: 1px solid #cac4d0;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .todo-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 1px solid #cac4d0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            background: #fffbfe;
+            color: #1c1b1f;
+        }
+        
+        .btn {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn--primary {
+            background: #6750a4;
+            color: #ffffff;
+        }
+        
+        .todo-filters {
+            display: flex;
+            gap: 8px;
+            padding: 20px 30px;
+            border-bottom: 1px solid #cac4d0;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #49454f;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .filter-btn--active {
+            background: #6750a4;
+            color: #ffffff;
+        }
+        
+        .todo-list-container {
+            min-height: 200px;
+            position: relative;
+        }
+        
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            color: #49454f;
+        }
+        
+        .empty-state__title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #49454f;
+        }
+        
+        .empty-state__description {
+            font-size: 1rem;
+            color: #1c1b1f;
+            opacity: 0.8;
+        }
+        
+        .todo-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-top: 1px solid #cac4d0;
+            background: #f3edf7;
+        }
+        
+        /* Font loading optimization */
+        .fonts-loaded {
+            font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header__title {
+                font-size: 2rem;
+            }
+            
+            .todo-input-section {
+                padding: 20px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .todo-filters {
+                padding: 16px 20px;
+                justify-content: center;
+            }
+            
+            .todo-stats {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="container">
+                <h1 class="header__title">Todo List</h1>
+                <p class="header__subtitle">Organize your tasks efficiently</p>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="container">
+                <div class="todo-app">
+                    <div class="todo-input-section">
+                        <form id="todoForm" class="todo-form">
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    id="todoInput" 
+                                    class="todo-input" 
+                                    placeholder="What needs to be done?"
+                                    autocomplete="off"
+                                    required
+                                >
+                                <button type="submit" class="btn btn--primary">
+                                    <svg class="btn__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" loading="lazy">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <polyline points="19,12 12,19 5,12"></polyline>
+                                    </svg>
+                                    Add Task
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="todo-filters">
+                        <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+
+                    <div class="todo-list-container">
+                        <ul id="todoList" class="todo-list">
+                            <!-- Todo items will be dynamically inserted here -->
+                        </ul>
+                        
+                        <div id="emptyState" class="empty-state" style="display: none;">
+                            <div class="empty-state__icon">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" loading="lazy">
+                                    <path d="M9 11H1l8-8 8 8h-8v8z"/>
+                                </svg>
+                            </div>
+                            <h2 class="empty-state__title">No tasks yet</h2>
+                            <p class="empty-state__description">Add your first task to get started!</p>
+                        </div>
+                    </div>
+
+                    <div id="todoStats" class="todo-stats" style="display: none;">
+                        <span class="stats-text">
+                            <span id="activeCount">0</span> items left
+                        </span>
+                        <button id="clearCompleted" class="btn btn--text">Clear completed</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Font loading detection -->
+    <script>
+        // Detect when custom fonts are loaded to prevent layout shift
+        if ('fonts' in document) {
+            Promise.all([
+                document.fonts.load('400 1em "Open Sans"'),
+                document.fonts.load('500 1em "Open Sans"'),
+                document.fonts.load('700 1em "Open Sans"')
+            ]).then(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+        } else {
+            // Fallback for browsers that don't support Font Loading API
+            setTimeout(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            }, 1000);
+        }
+        
+
+    </script>
+</body>
+</html> 

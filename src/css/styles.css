@@ -1,0 +1,426 @@
+/* Material Design Tokens */
+:root {
+  --md-ref-typeface-brand: 'Open Sans';
+  --md-ref-typeface-plain: system-ui;
+  
+  /* Material Design Color Tokens */
+  --md-sys-color-primary: #6750a4;
+  --md-sys-color-primary-container: #eaddff;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-on-primary-container: #21005e;
+  
+  --md-sys-color-secondary: #625b71;
+  --md-sys-color-secondary-container: #e8def8;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-on-secondary-container: #1e192b;
+  
+  --md-sys-color-tertiary: #7d5260;
+  --md-sys-color-tertiary-container: #ffd8e4;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-on-tertiary-container: #31111d;
+  
+  --md-sys-color-surface: #fffbfe;
+  --md-sys-color-surface-container: #f3edf7;
+  --md-sys-color-surface-container-high: #ece6f0;
+  --md-sys-color-surface-container-highest: #e6e0e9;
+  
+  --md-sys-color-on-surface: #1c1b1f;
+  --md-sys-color-on-surface-variant: #49454f;
+  
+  --md-sys-color-outline: #79747e;
+  --md-sys-color-outline-variant: #cac4d0;
+  
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-on-error-container: #410002;
+  
+  --md-sys-color-success: #0d904f;
+  --md-sys-color-success-container: #d1f4d1;
+  --md-sys-color-on-success: #ffffff;
+  --md-sys-color-on-success-container: #002200;
+  
+  /* Material Design Elevation */
+  --md-sys-elevation-level-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --md-sys-elevation-level-2: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+  --md-sys-elevation-level-4: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px 0 rgba(0, 0, 0, 0.30);
+  
+  /* Material Design Shape */
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  
+  /* Material Design State */
+  --md-sys-state-hover-opacity: 0.08;
+  --md-sys-state-focus-opacity: 0.12;
+  --md-sys-state-pressed-opacity: 0.12;
+  --md-sys-state-dragged-opacity: 0.16;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: var(--md-sys-color-on-surface);
+    background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, var(--md-sys-color-tertiary) 100%);
+    min-height: 100vh;
+    /* Prevent layout shift during font loading */
+    font-display: swap;
+}
+
+/* Apply custom font when loaded */
+.fonts-loaded body {
+    font-family: var(--md-ref-typeface-brand), var(--md-ref-typeface-plain), sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--md-sys-color-on-primary);
+}
+
+.header__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-shadow: var(--md-sys-elevation-level-1);
+}
+
+.header__subtitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+/* Main content */
+.main {
+    padding-bottom: 40px;
+}
+
+.todo-app {
+    background: var(--md-sys-color-surface);
+    border-radius: var(--md-sys-shape-corner-large);
+    box-shadow: var(--md-sys-elevation-level-4);
+    overflow: hidden;
+}
+
+/* Input section */
+.todo-input-section {
+    padding: 30px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.todo-form {
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    gap: 12px;
+}
+
+.todo-input {
+    flex: 1;
+    padding: 16px 20px;
+    border: 2px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-sys-shape-corner-medium);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: var(--md-sys-color-surface-container);
+}
+
+.todo-input:focus {
+    outline: none;
+    border-color: var(--md-sys-color-primary);
+    background: var(--md-sys-color-surface);
+    box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.1);
+}
+
+.todo-input::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: var(--md-sys-shape-corner-medium);
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn--primary {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    box-shadow: var(--md-sys-elevation-level-2);
+}
+
+.btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--md-sys-elevation-level-3);
+    background: var(--md-sys-color-primary);
+}
+
+.btn--text {
+    background: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    padding: 8px 16px;
+}
+
+.btn--text:hover {
+    color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface-container);
+}
+
+.btn__icon {
+    flex-shrink: 0;
+}
+
+/* Filters */
+.todo-filters {
+    display: flex;
+    padding: 20px 30px;
+    gap: 8px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--md-sys-shape-corner-small);
+    background: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    will-change: background-color, color;
+}
+
+.filter-btn:hover {
+    background: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface);
+}
+
+.filter-btn--active {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+}
+
+/* Todo list */
+.todo-list-container {
+    min-height: 200px;
+    position: relative;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 60px;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    animation: slideIn 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.todo-item:hover {
+    background: var(--md-sys-color-surface-container);
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.todo-item--completed .todo-text {
+    text-decoration: line-through;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.todo-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    margin-right: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    flex-shrink: 0;
+    will-change: background-color, border-color;
+}
+
+.todo-checkbox:checked {
+    background: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+}
+
+.todo-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--md-sys-color-on-primary);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 1rem;
+    color: var(--md-sys-color-on-surface);
+    word-break: break-word;
+}
+
+.todo-delete {
+    background: transparent;
+    border: none;
+    color: var(--md-sys-color-on-surface-variant);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+    will-change: background-color, color;
+}
+
+.todo-delete:hover {
+    background: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-error);
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 60px 30px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.empty-state__icon {
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.empty-state__description {
+    font-size: 1rem;
+    color: var(--md-sys-color-on-surface);
+    opacity: 0.8;
+}
+
+/* Stats */
+.todo-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    background: var(--md-sys-color-surface-container);
+}
+
+.stats-text {
+    font-size: 0.9rem;
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+.todo-item--removing {
+    animation: slideOut 0.3s ease forwards;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .header__title {
+        font-size: 2rem;
+    }
+    
+    .todo-input-section {
+        padding: 20px;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .todo-filters {
+        padding: 16px 20px;
+        justify-content: center;
+    }
+    
+    .todo-item {
+        padding: 16px 20px;
+    }
+    
+    .todo-stats {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+} 
